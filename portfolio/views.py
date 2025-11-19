@@ -37,34 +37,24 @@ def cv(request):
 
 
 def download_cv_pdf(request):
-    cv = CV.objects.first()
-    if not cv or not cv.pdf_cv_link:
-        raise Http404("PDF not found")
-
-    file_path = cv.pdf_cv_link.path
-    filename = "Ax-de-Klerk-CV.pdf"
+    file_path = os.path.join(settings.BASE_DIR, "static", "cv", "Ax_de_Klerk_-_CV.pdf")
 
     return FileResponse(
         open(file_path, "rb"),
-        content_type=mimetypes.guess_type(file_path)[0] or "application/pdf",
+        content_type="application/pdf",
         as_attachment=True,
-        filename=filename
+        filename="Ax_de_Klerk_-_CV.pdf"
     )
 
 
 def download_cv_doc(request):
-    cv = CV.objects.first()
-    if not cv or not cv.doc_cv_link:
-        raise Http404("DOC not found")
-
-    file_path = cv.doc_cv_link.path
-    filename = "Ax-de-Klerk-CV.docx"
+    file_path = os.path.join(settings.BASE_DIR, "static", "cv", "Ax_de_Klerk_-_CV.docx")
 
     return FileResponse(
         open(file_path, "rb"),
-        content_type=mimetypes.guess_type(file_path)[0] or "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
+        content_type="application/vnd.openxmlformats-officedocument.wordprocessingml.document",
         as_attachment=True,
-        filename=filename
+        filename="Ax_de_Klerk_-_CV.docx"
     )
 
 
