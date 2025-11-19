@@ -35,7 +35,7 @@ EMAIL_USE_TLS = env.bool("EMAIL_USE_TLS")
 EMAIL_HOST_USER = env("EMAIL_HOST_USER")
 EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'portfolio-5y32.onrender.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'axs-portfolio.onrender.com']
 
 # Application definition
 INSTALLED_APPS = [
