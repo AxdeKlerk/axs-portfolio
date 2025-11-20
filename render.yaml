@@ -11,3 +11,4 @@ services:
         sync: false
       - key: ALLOWED_HOSTS
         sync: false
+
