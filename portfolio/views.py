@@ -1,8 +1,9 @@
+import os
 from django.shortcuts import render, get_object_or_404, redirect
+from django.conf import settings
 from .models import About, Blog, Project, CV
 from django.http import FileResponse, Http404
 import mimetypes
-import os
 from django.core.mail import send_mail
 from django.contrib import messages
 

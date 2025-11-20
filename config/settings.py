@@ -20,7 +20,13 @@ SECRET_KEY = env("SECRET_KEY")
 ENVIRONMENT = env("ENVIRONMENT", default="production")
 DEBUG = ENVIRONMENT == "development"
 
-print(f"Running in {ENVIRONMENT} mode — DEBUG={DEBUG}")
+#print(f"Running in {ENVIRONMENT} mode — DEBUG={DEBUG}")
+#print("ENVIRONMENT:", ENVIRONMENT)
+#print("DEBUG:", DEBUG)
+#print("BASE_DIR:", BASE_DIR)
+#print("ENV FILE LOADED:", os.path.exists(BASE_DIR / ".env"))
+#print("INSTALLED_APPS:", INSTALLED_APPS)
+
 
 cloudinary.config(
     cloud_name=env("CLOUD_NAME"),
