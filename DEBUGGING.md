@@ -1,3 +1,33 @@
+# 1. Debugging Logs from this Build
+
+## Project Corruption Error — Rebuilding the Portfolio Project
+
+**Bug:**  
+I discovered that my original portfolio project had become corrupted to the point where normal **Django** operations no longer behaved predictably. Running `makemigrations` or `migrate` produced inconsistent results, some models refused to register, and certain app folders (such as `migrations/`) were missing critical files like `__init__.py`. Even when the project structure *looked* correct, **Django** could not detect model changes. On top of that, the app name had been created using a hyphen (`axs-portfolio`), which is invalid for Python imports and broke the app configuration. Several fixes were attempted, but each problem revealed deeper structural issues caused by the corrupt container environment from the old project.
+
+**Fix:**  
+I created a fresh **Django** project (`axs_portfolio`) using a clean virtual environment and then copied only the *safe* parts of my old project over (templates, static files, and my core app code). I recreated the `migrations` folder manually and added a proper `__init__.py` file so the folder was recognised as a valid Python module. Once the app name was corrected (`axs_portfolio`), **Django** was finally able to detect the models again. Running `python manage.py makemigrations axs_portfolio` correctly generated `0001_initial.py`, and applying `python manage.py migrate` succeeded with no errors. Starting fresh eliminated all hidden corruption and produced a clean, stable base for the project.
+
+**Lesson Learned:**  
+A broken **Django** environment can hide its damage in dozens of small ways, and chasing each error individually wastes more time than rebuilding clean. If migrations refuse to generate, or app folders behave unpredictably, it is often faster and safer to start a fresh project and copy code back in methodically. Avoid using hyphens in Python app names, and always ensure `migrations/__init__.py` exists in every app.
+
+---
+
+## Deployment Error — Render Failing After Rebuilding the Project
+
+**Bug:**  
+After rebuilding the portfolio project, Render failed to deploy the new version. The build process found the repository, but the environment configuration and settings structure no longer matched what Render expected. This included missing environment variables, differences in the settings layout, and changes to the base directory. Additionally, because the project folder name changed (`axs-portfolio` → `axs_portfolio`), Render’s previously cached build instructions no longer pointed to the correct path. This caused deployment to fail even though the code ran perfectly on my local machine.
+
+**Fix:**  
+I updated Render’s settings to point to the new folder structure and ensured that all required environment variables were added back into the Render dashboard. I verified that the new `config/settings.py` correctly loaded environment variables using **Cloudinary** and other services. After updating the Build Command and Start Command to match the new project structure, Render deployed successfully. Once the missing environment variables were restored and the paths matched the new layout, the site built and ran exactly as expected.
+
+**Lesson Learned:**  
+When a **Django** project is rebuilt or renamed, deployment services like Render do not automatically adjust. Any change to folder names, environment variable loading, or settings file locations requires the deployment configuration to be updated manually. A clean local build does not guarantee a successful remote build — Render must be given an environment that matches the new project’s structure exactly.
+
+---
+
+# 2. Debugging Logs from the Previous Build
+
 ## Security Error
 
 **Bug:**  
