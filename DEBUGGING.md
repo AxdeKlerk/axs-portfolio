@@ -26,6 +26,19 @@ When a **Django** project is rebuilt or renamed, deployment services like Render
 
 ---
 
+### Content Display Error
+
+**Bug:**  
+I thought one of my blog posts had imported as a single solid block of text with no paragraph spacing. Each time I viewed it on the previous site, the entire post appeared as one giant paragraph. I assumed the formatting from the **Django** admin panel wasn’t being applied.
+
+**Fix:**  
+The problem wasn’t the formatting — it was me checking the wrong blog. I realised I was using an incorrect slug to preview the post, so I wasn’t looking at the blog entry that actually contained the formatted text. Once I had created the new site and navigated to the correct slug, all paragraphs and formatting displayed correctly. No files were corrupt.
+
+**Lesson Learned:**  
+Before assuming content is broken or corrupted, I need to double-check I’m previewing the correct object. A wrong slug can mimic display or formatting issues and send me on a wild-goose debugging chase. Creating a new project and verifying the content source first saves time and avoids unnecessary fixes.
+
+---
+
 # 2. Debugging Logs from the Previous Build
 
 ## Security Error
