@@ -3,7 +3,7 @@ services:
     name: axs-portfolio
     env: python
     buildCommand: pip install -r requirements.txt
-    startCommand: python manage.py runserver 0.0.0.0:8000
+    startCommand: python manage.py runserver 0.0.0.0:10000
     envVars:
       - key: DATABASE_URL
         sync: false
